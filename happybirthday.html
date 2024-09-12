@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #111;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .birthday-container {
+            text-align: center;
+        }
+
+        .animated-text {
+            font-size: 3em;
+            color: #f39c12;
+            animation: slide-in 2s ease-out;
+        }
+
+        .animated-subtext {
+            font-size: 2em;
+            color: #e74c3c;
+            margin-top: 10px;
+            animation: fade-in 3s ease-in-out;
+        }
+
+        .photo-container {
+            margin-top: 20px;
+            animation: photo-fade 4s ease-in-out;
+        }
+
+        .photo {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            font-size: 1.5em;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Animations */
+        @keyframes slide-in {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes photo-fade {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .confetti {
+            position: absolute;
+            z-index: 100;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="birthday-container">
+        <h1 class="animated-text">Happy Birthday!</h1>
+        <h2 class="animated-subtext">Wishing you a day filled with love and joy!</h2>
+        <div class="photo-container">
+            <img src="your-photo.jpg" alt="Birthday Photo" class="photo">
+        </div>
+        <button id="confettiButton" class="btn">Click for Confetti!</button>
+    </div>
+    
+    <script>
+        document.getElementById('confettiButton').addEventListener('click', function() {
+            // Confetti animation when button is clicked
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        });
+
+        // Confetti JS Library
+        function confetti({particleCount, spread, origin}) {
+            // Simple confetti animation with random colors
+            const colors = ['#f39c12', '#e74c3c', '#3498db', '#2ecc71', '#9b59b6'];
+            for (let i = 0; i < particleCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(confetti);
+
+                const size = Math.random() * 10 + 5;
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.position = 'absolute';
+                confetti.style.left = `${x}px`;
+                confetti.style.top = `${y}px`;
+
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>
